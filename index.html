@@ -22,22 +22,27 @@
   <script>
     const queryString = decodeURIComponent(window.location.search).replace("?liff.state=", "");
     const params = new URLSearchParams(queryString);
+    const source = params.get('source');
     const id = params.get('id');
     console.log(id);
-    
-    if(id != null && id != '') {
-      // Create an iframe element
-      const iframe = document.createElement('iframe');
-      iframe.style.width = '100%'; // Set width to 100%
-      iframe.style.height = '100%'; // Set height to 100%
-      iframe.setAttribute('src', `https://www.youtube.com/embed/${id}?autoplay=1&vq=hd1080`);
-      iframe.setAttribute('frameborder', '0');
-      iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
-      iframe.setAttribute('allowfullscreen', 'true');
-
-      // Append the iframe to the videoContainer div
-      document.getElementById('videoContainer').appendChild(iframe);
-    }    
+    if(source != null && source != '')
+    {
+      if(source == 'drive')
+      {
+        window.location.assign('https://drive.google.com/file/d/' + id + '/preview');
+      }
+      if(source == 'youtube')
+      {
+        const iframe = document.createElement('iframe');
+        iframe.style.width = '100%'; // Set width to 100%
+        iframe.style.height = '100%'; // Set height to 100%
+        iframe.setAttribute('src', `https://www.youtube.com/embed/${id}?autoplay=1&vq=hd1080`);
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', 'true');
+        document.getElementById('videoContainer').appendChild(iframe);
+      }
+    } 
     else {
       window.location.assign("https://drive.google.com/drive/folders/1pq--fIQp7UdZVISdaX3aR5y5Jrf9lqJz?usp=drive_link");
     }
